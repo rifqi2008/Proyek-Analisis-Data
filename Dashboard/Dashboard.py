@@ -45,36 +45,27 @@ def plot_weather_condition(data):
     plt.xticks([0, 1, 2], ['Cerah', 'Berawan', 'Hujan'])
     st.pyplot()
 
-# Fungsi untuk menampilkan distribusi frekuensi penyewaan sepeda
-def plot_frequency_summary(data):
-    plt.figure(figsize=(10, 6))
-    sns.histplot(data['cnt_daily'], bins=30, kde=True)
-    plt.title('Distribusi Frekuensi Penyewaan Sepeda')
-    plt.xlabel('Frekuensi')
-    plt.ylabel('Jumlah Pelanggan')
-    st.pyplot()
+# Sidebar Menu
+st.sidebar.markdown("### Proyek Analisis Data")
+selected_option = st.sidebar.radio('Menu:', 
+                                   ['Beranda', 'Pola Persewaan Sepeda', 'Pengaruh Jam dalam Sehari', 'Hubungan Kondisi Cuaca'])
 
 # Main function
 def main():
-    # Menyiapkan aplikasi Streamlit
-    st.title('Analisis Frequency dan Visualisasi Data Persewaan Sepeda')
-
-    # Memuat data
-    bike_data = load_data()
-
-    # Menampilkan grafik
-    st.subheader('Grafik Pola Persewaan Sepeda antara Hari Kerja dan Hari Libur')
-    plot_workingday_vs_holiday(bike_data)
-
-    st.subheader('Grafik Pengaruh Jam dalam Sehari terhadap Jumlah Persewaan Sepeda')
-    plot_hourly_rentals(bike_data)
-
-    st.subheader('Grafik Hubungan Kondisi Cuaca dengan Rata-rata Persewaan Sepeda')
-    plot_weather_condition(bike_data)
-
-    st.subheader('Grafik Distribusi Frekuensi Penyewaan Sepeda')
-    plot_frequency_summary(bike_data)
+    bike_data = load_data()  # Memuat data
+    if selected_option == 'Beranda':
+        st.title('Analisis Frekuensi dan Visualisasi Data Persewaan Sepeda')
+        st.write('Rifqi Khairullah Muhamad')
+        st.write('ML-24')
+        st.write('m200d4ky2358@bangkit.academy')
+        st.write('Analisis data menyajikan tiga temuan utama terkait pola persewaan sepeda. Pertama, persewaan sepeda cenderung lebih tinggi pada hari-hari libur dibandingkan dengan hari kerja, menunjukkan adanya perbedaan pola persewaan antara kedua jenis hari tersebut. Kedua, terdapat pola penggunaan sepeda yang berkaitan dengan jam-jam sibuk pagi dan sore, dengan peningkatan signifikan pada jumlah penyewaan pada jam-jam awal pagi dan menjelang waktu pulang kerja. Ketiga, persewaan sepeda cenderung lebih tinggi pada kondisi cuaca yang cerah, diikuti oleh kondisi berawan, dan paling rendah pada kondisi hujan, menunjukkan bahwa kondisi cuaca mempengaruhi minat orang untuk menyewa sepeda. Temuan ini memberikan wawasan penting bagi pengelola penyewaan sepeda untuk memahami perilaku penyewa dan merencanakan strategi pemasaran yang tepat.')
+    elif selected_option == 'Pola Persewaan Sepeda':
+        plot_workingday_vs_holiday(bike_data)
+    elif selected_option == 'Pengaruh Jam dalam Sehari':
+        plot_hourly_rentals(bike_data)
+    elif selected_option == 'Hubungan Kondisi Cuaca':
+        plot_weather_condition(bike_data)
 
 # Menjalankan aplikasi
-if __name__ == '_main_':
+if __name__ == '__main__':
     main()
