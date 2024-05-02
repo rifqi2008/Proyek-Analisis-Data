@@ -2,13 +2,18 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import requests
+from io import StringIO
 
 # Menonaktifkan peringatan showPyplotGlobalUse
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Fungsi helper untuk membaca data
 def load_data():
-    bike_data = pd.read_csv('/workspaces/Proyek-Analisis-Data/Dashboard/all_data.csv')
+    url = 'https://drive.google.com/uc?id=1JSyHpnwfnsP-id-cQA9TNEtNS8EgHHkl&export=download'
+    response = requests.get(url)
+    csv_data = StringIO(response.text)
+    bike_data = pd.read_csv(csv_data)
     return bike_data
 
 # Fungsi untuk menampilkan pola persewaan sepeda antara hari kerja dan hari libur
